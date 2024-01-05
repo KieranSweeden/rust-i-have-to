@@ -1,9 +1,18 @@
-use axum::{response::Html, routing::get, Router};
+use askama::Template;
+use axum::{routing::get, Router};
 
 pub fn routes() -> Router {
-    Router::new().route("/", get(get_todos))
+    Router::new().route("/", get(get_todo))
 }
 
-async fn get_todos() -> Html<&'static str> {
-    Html("Hello from the todo get route!")
+#[derive(Template)]
+#[template(path = "todo.html")]
+struct HelloTemplate<'a> {
+    todo_name: &'a str,
+}
+
+async fn get_todo() -> HelloTemplate<'static> {
+    HelloTemplate {
+        todo_name: "finish this project",
+    }
 }
