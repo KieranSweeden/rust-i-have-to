@@ -9,7 +9,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .nest("/todos", todo::routes())
         .route(
             "/",
-            get(|| async { Html("Hello from the home get route!") }),
+            get(|| async { Html("Hello from the home get routes!") }),
         )
         .layer(LiveReloadLayer::new());
 
